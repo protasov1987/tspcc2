@@ -4,7 +4,7 @@ const path = require('path');
 const { randomUUID } = require('crypto');
 
 const DATA_PATH = path.join(__dirname, 'db.json');
-const PUBLIC_DIR = path.join(__dirname, 'public');
+const PUBLIC_DIR = __dirname;
 
 function loadDb() {
   if (!fs.existsSync(DATA_PATH)) {
@@ -171,8 +171,11 @@ function serveStatic(req, res) {
   let filePath = req.url === '/' ? '/index.html' : req.url;
   if (filePath.startsWith('/api/')) return false;
   if (filePath.startsWith('/print/')) return false;
-  const resolved = path.join(PUBLIC_DIR, filePath.split('?')[0]);
+  const safePath = filePath.split('?')[0].replace(/^\//, '');
+  const resolved = path.join(PUBLIC_DIR, safePath);
   if (!resolved.startsWith(PUBLIC_DIR)) return false;
+  const allowedFiles = new Set(['index.html', 'main.js', 'styles.css']);
+  if (!allowedFiles.has(path.basename(resolved))) return false;
   if (!fs.existsSync(resolved)) return false;
   const content = fs.readFileSync(resolved);
   const ext = path.extname(resolved);

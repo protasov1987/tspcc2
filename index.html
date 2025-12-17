@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Маршрутные карты MES</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="role-modal" class="modal">
+    <div class="modal-content">
+      <h3>Выберите роль</h3>
+      <select id="role-select"></select>
+      <button id="role-save">Продолжить</button>
+    </div>
+  </div>
+  <header>
+    <div>
+      <strong>Текущая роль:</strong> <span id="current-role"></span>
+      <button id="change-role">Сменить роль</button>
+    </div>
+    <div class="search">
+      <input id="global-search" placeholder="Поиск МК или детали">
+      <button id="search-btn">Искать</button>
+      <a id="scanner-link" href="#" title="Сканер (имитация)">Сканер</a>
+    </div>
+  </header>
+  <nav id="tabs"></nav>
+  <main id="content"></main>
+  <script src="main.js"></script>
+</body>
+</html>
